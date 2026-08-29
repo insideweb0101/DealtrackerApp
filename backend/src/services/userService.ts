@@ -1,9 +1,9 @@
 import { userModel } from '../models/User';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { User } from '../types';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-const JWT_EXPIRE = process.env.JWT_EXPIRE || '7d';
+const JWT_EXPIRE = (process.env.JWT_EXPIRE || '7d') as SignOptions['expiresIn'];
 
 export const userService = {
   async register(email: string, name: string, password: string, role: string = 'sales_rep') {
