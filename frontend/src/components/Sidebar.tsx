@@ -1,58 +1,30 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MdDashboard, MdHandshake, MdNotifications, MdPerson } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
-import { logout } from '../store/slices/authSlice';
+import { MdDashboard, MdPublic, MdStorage } from 'react-icons/md';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
-
   const menuItems = [
-    { path: '/', label: 'Dashboard', icon: MdDashboard },
-    { path: '/deals', label: 'Deals', icon: MdHandshake },
-    { path: '/alerts', label: 'Alerts', icon: MdNotifications },
-    { path: '/profile', label: 'Profile', icon: MdPerson },
+    { path: '/', label: 'Overview', icon: MdDashboard },
+    { path: '/facilities', label: 'Facilities', icon: MdStorage },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
-
   return (
-    <div className="w-64 bg-slate-900 text-white flex flex-col">
-      <div className="p-6 border-b border-slate-700">
-        <h1 className="text-2xl font-bold">DealTracker</h1>
-        <p className="text-sm text-slate-400">Deal Management</p>
-      </div>
-
-      <nav className="flex-1 p-4 space-y-2">
+    <aside className="flex w-full shrink-0 flex-col bg-[#102c2a] text-white md:min-h-screen md:w-[244px]">
+      <Link to="/" className="flex items-center gap-3 border-b border-white/10 px-5 py-5 md:px-6 md:py-7">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c4f06b] text-xl text-[#17372f]"><MdPublic /></span>
+        <span><span className="block text-sm font-semibold tracking-wide">DATA CENTERS</span><span className="mt-0.5 block text-[10px] uppercase tracking-[0.19em] text-emerald-100/60">Global tracker</span></span>
+      </Link>
+      <nav className="flex gap-2 overflow-x-auto p-3 md:flex-col md:gap-1 md:p-4">
+        <p className="hidden px-3 pb-2 pt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100/45 md:block">Workspace</p>
         {menuItems.map((item) => {
           const Icon = item.icon;
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                isActive(item.path)
-                  ? 'bg-blue-600 text-white'
-                  : 'text-slate-300 hover:bg-slate-800'
-              }`}
-            >
-              <Icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          );
+          const active = location.pathname === item.path || (item.path === '/' && location.pathname === '/facilities');
+          return <Link key={item.path} to={item.path} className={`flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${active ? 'bg-white/10 font-medium text-[#d0f28f]' : 'text-emerald-50/70 hover:bg-white/5 hover:text-white'}`}><Icon className="text-lg" /><span>{item.label}</span></Link>;
         })}
       </nav>
-
-      <div className="p-4 border-t border-slate-700">
-        <button
-          onClick={() => dispatch(logout())}
-          className="w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
+      <div className="mt-auto hidden border-t border-white/10 p-5 text-[11px] leading-5 text-emerald-100/50 md:block">A growing view of digital infrastructure and its energy footprint.</div>
+    </aside>
   );
 };
 

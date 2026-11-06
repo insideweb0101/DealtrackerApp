@@ -1,7 +1,7 @@
 {
-  "name": "dealtracker-frontend",
+  "name": "data-centers-tracker-frontend",
   "version": "1.0.0",
-  "description": "Deal tracking and alerting system UI",
+  "description": "Global data center facility and energy footprint tracker UI",
   "private": true,
   "homepage": "/",
   "dependencies": {
@@ -36,15 +36,7 @@
     "lint": "eslint src --ext .ts,.tsx"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }
